@@ -1,0 +1,60 @@
+.container {
+  padding: 2rem;
+  width: 60%;
+  margin: 8rem auto 0;
+}
+
+h1 {
+  color: #fafafa;
+  text-align: center;
+}
+
+p {
+  margin: 0;
+  color: #5c667b;
+}
+
+.card {
+  min-height: 12vh;
+  width: 100%;
+  padding: 2rem;
+  background: #fafafa;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 1.5rem;
+}
+
+form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-form-field {
+  flex: 1;
+  mat-label {
+    font-size: 0.875rem;
+  }
+
+  input {
+    font-size: 1.5rem;
+  }
+}
+
+.from-value {
+  font-size: 1rem;
+}
+
+.to-value {
+  font-weight: 600;
+  font-size: 1.875rem;
+  margin: 10px 0;
+  color: #2e3c57;
+}
+
+.base-value {
+  font-size: 0.875rem;
+}

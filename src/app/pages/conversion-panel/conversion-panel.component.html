@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>Conversor de Ouro Real / Tibar</h1>
+  <div class="card">
+    <form [formGroup]="conversionForm">
+      <mat-form-field floatLabel="always">
+        <mat-label>Quantidade</mat-label>
+        <input
+          matInput
+          type="number"
+          min="0"
+          placeholder="0"
+          formControlName="amount"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>De</mat-label>
+        <mat-select value="gold" formControlName="to">
+          <mat-option selected value="gold">Ouro Real</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Para</mat-label>
+        <mat-select value="tibar" formControlName="from">
+          <mat-option selected value="tibar">Tibar</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <div class="actions">
+      <div class="values">
+        <p class="from-value">
+          {{ conversionForm.get("amount")?.value }} Ouro Real =
+        </p>
+        <p class="to-value">{{ convertedAmount }} Tibares</p>
+        <p class="base-value">1 Ouro real = 2,5 Tibares</p>
+        <p class="base-value">1 Tibar = 0,4 Ouro Real</p>
+      </div>
+      <button mat-raised-button color="primary" (click)="convertCurrency()">
+        Converter
+      </button>
+    </div>
+  </div>
+</div>
