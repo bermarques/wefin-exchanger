@@ -16,7 +16,7 @@
         <mat-label>De</mat-label>
         <input
           matInput
-          formControlName="from"
+          formControlName="sourceCurrency"
           readonly
           class="readonly-input"
           inert
@@ -34,7 +34,7 @@
         <mat-label>Para</mat-label>
         <input
           matInput
-          formControlName="to"
+          formControlName="targetCurrency"
           readonly
           class="readonly-input"
           inert
@@ -43,7 +43,7 @@
     </form>
     <div class="actions">
       <div class="values">
-        <p class="from-value">{{ amount }} {{ getCurrentCurrency() }} =</p>
+        <p class="from-value">{{ amount }} {{ getSourceCurrency() }} =</p>
         <p class="to-value">{{ convertedAmount }} {{ getTargetCurrency() }}</p>
         <p class="base-value">1 Ouro real = {{ conversionRate }} Tibares</p>
         <p class="base-value">

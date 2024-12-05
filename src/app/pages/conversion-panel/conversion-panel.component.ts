@@ -55,8 +55,8 @@ export class ConversionPanelComponent implements OnInit, OnDestroy {
   initForm() {
     this.conversionForm = new FormGroup({
       amount: new FormControl(0, Validators.required),
-      from: new FormControl('Ouro Real', Validators.required),
-      to: new FormControl('Tibar', Validators.required),
+      sourceCurrency: new FormControl('Ouro Real', Validators.required),
+      targetCurrency: new FormControl('Tibar', Validators.required),
     });
   }
 
@@ -79,22 +79,24 @@ export class ConversionPanelComponent implements OnInit, OnDestroy {
   }
 
   swapCurrency() {
-    const fromValue = this.conversionForm.get('from')?.value || 'Ouro Real';
-    const toValue = this.conversionForm.get('to')?.value || 'Tibar';
+    const sourceValue =
+      this.conversionForm.get('sourceCurrency')?.value || 'Ouro Real';
+    const targetValue =
+      this.conversionForm.get('targetCurrency')?.value || 'Tibar';
 
-    this.conversionForm.get('from')?.setValue(toValue);
-    this.conversionForm.get('to')?.setValue(fromValue);
+    this.conversionForm.get('sourceCurrency')?.setValue(targetValue);
+    this.conversionForm.get('targetCurrency')?.setValue(sourceValue);
 
     this.conversionRate = 1 / this.conversionRate;
     this.convertCurrency();
   }
 
-  getCurrentCurrency() {
-    return this.conversionForm.get('from')?.value || 'Ouro Real';
+  getSourceCurrency() {
+    return this.conversionForm.get('sourceCurrency')?.value || 'Ouro Real';
   }
 
   getTargetCurrency() {
-    return this.conversionForm.get('to')?.value || 'Tibar';
+    return this.conversionForm.get('targetCurrency')?.value || 'Tibar';
   }
 
   ngOnDestroy() {
