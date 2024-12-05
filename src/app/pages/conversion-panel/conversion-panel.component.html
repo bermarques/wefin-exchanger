@@ -2,7 +2,7 @@
   <h1>Conversor de Ouro Real / Tibar</h1>
   <div class="card">
     <form [formGroup]="conversionForm">
-      <mat-form-field floatLabel="always">
+      <mat-form-field floatLabel="always" hideRequiredMarker>
         <mat-label>Quantidade</mat-label>
         <input
           matInput
@@ -12,29 +12,53 @@
           formControlName="amount"
         />
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field hideRequiredMarker>
         <mat-label>De</mat-label>
-        <mat-select value="gold" formControlName="to">
-          <mat-option selected value="gold">Ouro Real</mat-option>
-        </mat-select>
+        <input
+          matInput
+          formControlName="from"
+          readonly
+          class="readonly-input"
+          inert
+        />
       </mat-form-field>
-      <mat-form-field>
+      <button
+        mat-fab
+        color="white"
+        class="swap-button"
+        (click)="swapCurrency()"
+      >
+        <mat-icon>swap_horiz</mat-icon>
+      </button>
+      <mat-form-field hideRequiredMarker>
         <mat-label>Para</mat-label>
-        <mat-select value="tibar" formControlName="from">
-          <mat-option selected value="tibar">Tibar</mat-option>
-        </mat-select>
+        <input
+          matInput
+          formControlName="to"
+          readonly
+          class="readonly-input"
+          inert
+        />
       </mat-form-field>
     </form>
     <div class="actions">
       <div class="values">
-        <p class="from-value">
-          {{ conversionForm.get("amount")?.value }} Ouro Real =
+        <p class="from-value">{{ amount }} {{ getCurrentCurrency() }} =</p>
+        <p class="to-value">{{ convertedAmount }} {{ getTargetCurrency() }}</p>
+        <p class="base-value">1 Ouro real = {{ conversionRate }} Tibares</p>
+        <p class="base-value">
+          1 Tibar = {{ 1 / conversionRate | number : "0.2-2" }} Ouro Real
         </p>
-        <p class="to-value">{{ convertedAmount }} Tibares</p>
-        <p class="base-value">1 Ouro real = 2,5 Tibares</p>
-        <p class="base-value">1 Tibar = 0,4 Ouro Real</p>
+        <button mat-button color="primary" (click)="openDialog()">
+          Atualizar taxa
+        </button>
       </div>
-      <button mat-raised-button color="primary" (click)="convertCurrency()">
+      <button
+        mat-raised-button
+        color="primary"
+        class="convert-button"
+        (click)="convertCurrency()"
+      >
         Converter
       </button>
     </div>

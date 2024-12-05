@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Atualizar taxa de conversão</h2>
+<mat-dialog-content>
+  <p>1 Ouro Real =</p>
+  <div class="value-container">
+    <form>
+      <mat-form-field [formGroup]="taxForm">
+        <input
+          matInput
+          type="number"
+          min="0"
+          placeholder="0"
+          formControlName="rate"
+        />
+      </mat-form-field>
+    </form>
+    <p>Tibares</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button mat-dialog-close (click)="onSave()">Atualizar</button>
+</mat-dialog-actions>

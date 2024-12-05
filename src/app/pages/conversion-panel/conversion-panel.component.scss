@@ -58,3 +58,18 @@ mat-form-field {
 .base-value {
   font-size: 0.875rem;
 }
+
+.convert-button {
+  height: 48px;
+  width: 234px;
+}
+
+.swap-button {
+  margin-top: 0.875rem;
+  width: 40px;
+  height: 40px;
+}
+
+.readonly-input {
+  cursor: default;
+}
