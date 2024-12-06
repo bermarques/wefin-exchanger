@@ -28,34 +28,34 @@ import { TransactionsService } from '../../services/transactions/transactions.se
   templateUrl: './transaction-details.component.html',
   styleUrl: './transaction-details.component.scss',
 })
-export class TransactionDetailsComponent implements OnInit, OnDestroy {
+export class TransactionDetailsComponent implements OnInit {
   private readonly data = inject(MAT_DIALOG_DATA) as { id: number };
   private readonly transactionsService = inject(TransactionsService);
 
   transaction?: Transaction;
   isLoading = false;
 
-  transactionsSub!: Subscription;
-
   ngOnInit() {
     this.isLoading = true;
-    setTimeout(async () => {
-      this.transactionsSub = await this.transactionsService
-        .getTransactionDetail(this.data.id)
-        .pipe(
-          finalize(() => {
-            this.isLoading = false;
-          })
-        )
-        .subscribe({
-          next: (transaction) => {
-            this.transaction = transaction;
-          },
-        });
+    setTimeout(() => {
+      this.transaction = this.transactionsService.getTransactionDetail(
+        this.data.id
+      );
+      this.isLoading = false;
     }, 500);
   }
 
-  ngOnDestroy() {
-    if (this.transactionsSub) this.transactionsSub.unsubscribe();
+  getUsedTax() {
+    const tax =
+      (this.transaction?.receivedValue || 0) -
+        (this.transaction?.paidValue || 0) || 1;
+
+    if (this.transaction) {
+      return (
+        (this.transaction?.receivedValue || 0) /
+        (this.transaction?.paidValue || 0)
+      );
+    }
+    return 0;
   }
 }

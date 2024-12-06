@@ -17,6 +17,8 @@ import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { TransactionHistoryComponent } from '../transaction-history/transaction-history.component';
+import { TransactionsService } from '../../services/transactions/transactions.service';
+import formatTransactionDate from '../../utils/formatTransactionDate';
 
 @Component({
   selector: 'app-conversion-panel',
@@ -38,6 +40,7 @@ import { TransactionHistoryComponent } from '../transaction-history/transaction-
 export class ConversionPanelComponent implements OnInit, OnDestroy {
   private readonly dialog = inject(MatDialog);
   private readonly taxesService = inject(TaxesService);
+  private readonly transactionsService = inject(TransactionsService);
 
   taxesSub!: Subscription;
 
@@ -99,6 +102,21 @@ export class ConversionPanelComponent implements OnInit, OnDestroy {
 
   getTargetCurrency() {
     return this.conversionForm.get('targetCurrency')?.value || 'Tibar';
+  }
+
+  createTransaction() {
+    this.convertCurrency();
+
+    this.transactionsService.addTransaction({
+      sourceCurrency:
+        this.conversionForm.get('sourceCurrency')?.value || 'Ouro Real',
+      targetCurrency:
+        this.conversionForm.get('targetCurrency')?.value || 'Tibar',
+      paidValue: this.amount,
+      transactionDate: formatTransactionDate(new Date()),
+      clientName: 'Desconhecido',
+      receivedValue: this.convertedAmount,
+    });
   }
 
   ngOnDestroy() {

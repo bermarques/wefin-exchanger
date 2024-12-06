@@ -38,14 +38,11 @@
         <p>Valor do pagamento</p>
         <p>{{ transaction?.paidValue }} {{ transaction?.sourceCurrency }}</p>
       </div>
-      <div class="detail-row">
+      <div class="detail-row" *ngIf="getUsedTax()">
         <p>Taxa usada</p>
         <p>
           1 {{ transaction?.sourceCurrency }} =
-          {{
-            (transaction?.receivedValue || 0) / (transaction?.paidValue || 0)
-              | number : "0.0-2"
-          }}
+          {{ getUsedTax() | number : "0.0-2" }}
           {{ transaction?.targetCurrency }}
         </p>
       </div>
