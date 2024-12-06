@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ConversionPanelComponent } from '../conversion-panel/conversion-panel.component';
-import { TransactionHistoryComponent } from '../transaction-history/transaction-history.component';
+import { ConversionPanelComponent } from '../../components/conversion-panel/conversion-panel.component';
+import { TransactionHistoryComponent } from '../../components/transaction-history/transaction-history.component';
 
 @Component({
   selector: 'app-home',

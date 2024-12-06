@@ -11,7 +11,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { finalize, Subscription } from 'rxjs';
-import { TransactionDetailsComponent } from '../../components/transaction-details/transaction-details.component';
+import { TransactionDetailsComponent } from '../transaction-details/transaction-details.component';
 import { Transaction } from '../../models/transactions.model';
 import { TransactionsService } from '../../services/transactions/transactions.service';
 import { CommonModule } from '@angular/common';
