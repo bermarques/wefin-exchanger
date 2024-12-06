@@ -16,6 +16,7 @@ import { TaxesService } from '../../services/taxes.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { TransactionHistoryComponent } from '../transaction-history/transaction-history.component';
 
 @Component({
   selector: 'app-conversion-panel',
@@ -29,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     MatIconModule,
     CommonModule,
+    TransactionHistoryComponent,
   ],
   templateUrl: './conversion-panel.component.html',
   styleUrl: './conversion-panel.component.scss',
