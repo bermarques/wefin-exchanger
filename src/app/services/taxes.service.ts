@@ -5,14 +5,14 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class TaxesService {
-  private conversionRateSubject = new BehaviorSubject<number>(2.5);
-  conversionRate$ = this.conversionRateSubject.asObservable();
+  private conversionRate$ = new BehaviorSubject<number>(2.5);
+  conversionRate = this.conversionRate$.asObservable();
 
   getRate() {
-    return this.conversionRateSubject.getValue();
+    return this.conversionRate$.getValue();
   }
 
   setRate(newRate: number) {
-    this.conversionRateSubject.next(newRate);
+    this.conversionRate$.next(newRate);
   }
 }

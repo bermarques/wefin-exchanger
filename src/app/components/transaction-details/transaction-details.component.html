@@ -1,0 +1,57 @@
+<mat-progress-spinner
+  class="center-spinner"
+  mode="indeterminate"
+  *ngIf="isLoading"
+>
+</mat-progress-spinner>
+
+<ng-container *ngIf="!isLoading">
+  <h2 mat-dialog-title>Detalhes da transação</h2>
+  <mat-dialog-content>
+    <div class="main-info">
+      <p>Quantidade</p>
+      <h5>
+        +{{ transaction?.receivedValue }} {{ transaction?.targetCurrency }}
+      </h5>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="details">
+      <div class="detail-row">
+        <p>Para</p>
+        <p>{{ transaction?.clientName }}</p>
+      </div>
+      <div class="detail-row">
+        <p>Data da transação</p>
+        <p>{{ transaction?.transactionDate }}</p>
+      </div>
+      <div class="detail-row">
+        <p>ID da transação</p>
+        <p>{{ transaction?.id }}</p>
+      </div>
+      <div class="detail-row">
+        <p>Moeda de Origem</p>
+        <p>{{ transaction?.sourceCurrency }}</p>
+      </div>
+      <div class="detail-row">
+        <p>Valor do pagamento</p>
+        <p>{{ transaction?.paidValue }} {{ transaction?.sourceCurrency }}</p>
+      </div>
+      <div class="detail-row">
+        <p>Taxa usada</p>
+        <p>
+          1 {{ transaction?.sourceCurrency }} =
+          {{
+            (transaction?.receivedValue || 0) / (transaction?.paidValue || 0)
+              | number : "0.0-2"
+          }}
+          {{ transaction?.targetCurrency }}
+        </p>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Fechar</button>
+  </mat-dialog-actions>
+</ng-container>

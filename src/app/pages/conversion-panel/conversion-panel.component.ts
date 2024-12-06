@@ -49,7 +49,7 @@ export class ConversionPanelComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initForm();
 
-    this.taxesSub = this.taxesService.conversionRate$.subscribe((rate) => {
+    this.taxesSub = this.taxesService.conversionRate.subscribe((rate) => {
       this.conversionRate = rate;
     });
   }
@@ -102,6 +102,6 @@ export class ConversionPanelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.taxesSub.unsubscribe();
+    if (this.taxesSub) this.taxesSub.unsubscribe();
   }
 }
