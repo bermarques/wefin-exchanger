@@ -5,20 +5,30 @@
   position: absolute;
   z-index: -1;
   overflow: hidden;
-}
 
-.background::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 65%;
-  background-color: var(--white);
-  border-radius: 40% 40% 0 0;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 65%;
+    background-color: var(--white);
+    border-radius: 40% 40% 0 0;
+  }
+
+  @media screen and (max-width: 576px) {
+    &::after {
+      content: none;
+    }
+  }
 }
 
 .content {
   position: relative;
   z-index: 1;
   padding: 20px;
+
+  @media screen and (max-width: 576px) {
+    padding: 20px 0 0;
+  }
 }
