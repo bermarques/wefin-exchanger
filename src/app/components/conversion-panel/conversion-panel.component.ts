@@ -67,7 +67,11 @@ export class ConversionPanelComponent implements OnInit, OnDestroy {
 
   openDialog() {
     const dialogRef = this.dialog.open(UpdateTaxComponent, {
-      data: { conversionRate: this.conversionRate },
+      data: {
+        conversionRate: this.conversionRate,
+        sourceCurrency: this.getSourceCurrency(),
+        targetCurrency: this.getTargetCurrency(),
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

@@ -35,12 +35,20 @@ import {
 })
 export class UpdateTaxComponent implements OnInit {
   dialogRef = inject(MatDialogRef);
-  data = inject(MAT_DIALOG_DATA) as { conversionRate: number };
+  data = inject(MAT_DIALOG_DATA) as {
+    conversionRate: number;
+    sourceCurrency: string;
+    targetCurrency: string;
+  };
   newRate!: number;
   taxForm!: FormGroup;
+  targetCurrency: string = '';
+  sourceCurrency: string = '';
 
   ngOnInit() {
     this.newRate = this.data.conversionRate;
+    this.sourceCurrency = this.data.sourceCurrency;
+    this.targetCurrency = this.data.targetCurrency;
 
     this.taxForm = new FormGroup({
       rate: new FormControl(this.newRate, Validators.required),

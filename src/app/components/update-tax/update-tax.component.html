@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Atualizar taxa de conversão</h2>
 <mat-dialog-content>
-  <p>1 Ouro Real =</p>
+  <p>1 {{ sourceCurrency }} =</p>
   <div class="value-container">
     <form>
       <mat-form-field [formGroup]="taxForm">
@@ -13,7 +13,7 @@
         />
       </mat-form-field>
     </form>
-    <p>Tibares</p>
+    <p>{{ targetCurrency }}</p>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
