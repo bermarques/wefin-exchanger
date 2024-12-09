@@ -1,10 +1,15 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu'; // Import necessário
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
@@ -15,8 +20,6 @@ import { Transaction } from '../../models/transactions.model';
 import { TransactionsService } from '../../services/transactions/transactions.service';
 import { unformatTransactionDate } from '../../utils/unformatTransactionDate';
 import { TransactionDetailsComponent } from '../transaction-details/transaction-details.component';
-import { provideNativeDateAdapter } from '@angular/material/core';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-transaction-history',
@@ -32,6 +35,9 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatDatepickerModule,
     FormsModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './transaction-history.component.html',
@@ -93,6 +99,7 @@ export class TransactionHistoryComponent implements OnInit, OnDestroy {
   }
 
   displayedColumns: string[] = [
+    'filter',
     'id',
     'sourceCurrency',
     'targetCurrency',
@@ -154,6 +161,17 @@ export class TransactionHistoryComponent implements OnInit, OnDestroy {
 
   applyFilter() {
     this.dataSource.filter = JSON.stringify(this.filters);
+  }
+
+  clearFilters() {
+    this.filters = {
+      sourceCurrency: '',
+      targetCurrency: '',
+      transactionDate: null,
+      minValue: null,
+      maxValue: null,
+    };
+    this.applyFilter();
   }
 
   ngOnDestroy() {

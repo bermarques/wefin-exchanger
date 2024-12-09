@@ -78,13 +78,37 @@ mat-paginator {
 }
 
 .filters {
+  padding: 1rem;
   display: grid;
   gap: 1rem;
   margin-bottom: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   align-items: center;
 
+  h5 {
+    text-align: center;
+    font-size: 1rem;
+    margin: 0;
+  }
+
   mat-form-field {
     width: 100%;
+  }
+}
+
+.filter-desktop {
+  padding: 0;
+
+  @media screen and (max-width: 769px) {
+    display: none;
+  }
+}
+
+.filters-mobile {
+  width: 100%;
+  margin: 1rem 0;
+
+  @media screen and (min-width: 770px) {
+    display: none;
   }
 }
