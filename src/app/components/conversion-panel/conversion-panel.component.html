@@ -13,6 +13,7 @@
               placeholder="0"
               formControlName="amount"
             />
+            <mat-error>{{ checkError() }}</mat-error>
           </mat-form-field>
           <mat-form-field hideRequiredMarker>
             <mat-label>De</mat-label>
@@ -70,6 +71,7 @@
             class="convert-button"
             type="submit"
             (click)="createTransaction()"
+            [disabled]="conversionForm?.invalid"
           >
             Converter
           </button>

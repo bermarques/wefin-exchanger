@@ -2,6 +2,7 @@ import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   FormsModule,
@@ -19,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TransactionHistoryComponent } from '../transaction-history/transaction-history.component';
 import { TransactionsService } from '../../services/transactions/transactions.service';
 import formatTransactionDate from '../../utils/formatTransactionDate';
+import { greaterThanZeroValidator } from '../../utils/validateGreaterThanZero';
 
 @Component({
   selector: 'app-conversion-panel',
@@ -48,7 +50,6 @@ export class ConversionPanelComponent implements OnInit, OnDestroy {
   conversionRate = 2.5;
   amount = 0;
   convertedAmount = 0;
-
   ngOnInit() {
     this.initForm();
 
@@ -59,7 +60,10 @@ export class ConversionPanelComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.conversionForm = new FormGroup({
-      amount: new FormControl(0, Validators.required),
+      amount: new FormControl(0, [
+        Validators.required,
+        greaterThanZeroValidator,
+      ]),
       sourceCurrency: new FormControl('Ouro Real', Validators.required),
       targetCurrency: new FormControl('Tibar', Validators.required),
     });
@@ -121,6 +125,19 @@ export class ConversionPanelComponent implements OnInit, OnDestroy {
       clientName: 'Desconhecido',
       receivedValue: this.convertedAmount,
     });
+  }
+
+  checkError(): string {
+    const formControl = this.conversionForm.get('amount');
+
+    if (formControl?.hasError('required')) {
+      return 'Valor obrigatório';
+    }
+
+    if (formControl?.hasError('greaterThanZero')) {
+      return 'Valor deve ser maior que 0';
+    }
+    return '';
   }
 
   ngOnDestroy() {

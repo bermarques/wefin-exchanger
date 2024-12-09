@@ -16,6 +16,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { greaterThanZeroValidator } from '../../utils/validateGreaterThanZero';
 
 @Component({
   selector: 'app-update-tax',
@@ -51,8 +52,24 @@ export class UpdateTaxComponent implements OnInit {
     this.targetCurrency = this.data.targetCurrency;
 
     this.taxForm = new FormGroup({
-      rate: new FormControl(this.newRate, Validators.required),
+      rate: new FormControl(this.newRate, [
+        Validators.required,
+        greaterThanZeroValidator,
+      ]),
     });
+  }
+
+  checkError(): string {
+    const formControl = this.taxForm?.get('rate');
+
+    if (formControl?.hasError('required')) {
+      return 'Valor obrigatório';
+    }
+
+    if (formControl?.hasError('greaterThanZero')) {
+      return 'Valor deve ser maior que 0';
+    }
+    return '';
   }
 
   onSave(): void {

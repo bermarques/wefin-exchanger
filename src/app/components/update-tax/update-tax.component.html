@@ -11,6 +11,7 @@
           placeholder="0"
           formControlName="rate"
         />
+        <mat-error>{{ checkError() }}</mat-error>
       </mat-form-field>
     </form>
     <p>{{ targetCurrency }}</p>
@@ -18,5 +19,12 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-button mat-dialog-close (click)="onSave()">Atualizar</button>
+  <button
+    mat-button
+    mat-dialog-close
+    (click)="onSave()"
+    [disabled]="taxForm?.invalid"
+  >
+    Atualizar
+  </button>
 </mat-dialog-actions>
