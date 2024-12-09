@@ -1,5 +1,9 @@
 Wefin Exchanger é uma aplicação resolvida para resolver os problemas dos mercadores no **Mercado de Pulgas dos Mil Saberes**! Permitindo realizar a conversão de Ouro Real para Tibar, e vice-versa.
 
+## 📸 Captura de Tela
+
+![Preview](https://github.com/bermarques/wefin-exchanger/raw/main/src/assets/preview.png)
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **Angular** - Framework front-end para a construção da interface de usuário.
