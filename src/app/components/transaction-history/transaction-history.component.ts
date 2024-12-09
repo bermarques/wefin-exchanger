@@ -15,6 +15,9 @@ import { TransactionDetailsComponent } from '../transaction-details/transaction-
 import { Transaction } from '../../models/transactions.model';
 import { TransactionsService } from '../../services/transactions/transactions.service';
 import { CommonModule } from '@angular/common';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { unformatTransactionDate } from '../../utils/unformatTransactionDate';
 
 @Component({
   selector: 'app-transaction-history',
@@ -24,6 +27,7 @@ import { CommonModule } from '@angular/common';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     CommonModule,
+    MatSortModule,
   ],
   templateUrl: './transaction-history.component.html',
   styleUrl: './transaction-history.component.scss',
@@ -31,12 +35,28 @@ import { CommonModule } from '@angular/common';
 export class TransactionHistoryComponent implements OnInit, OnDestroy {
   private readonly dialog = inject(MatDialog);
   private readonly transactionsService = inject(TransactionsService);
+  private readonly liveAnnouncer = inject(LiveAnnouncer);
 
   private paginator!: MatPaginator;
+  private sort!: MatSort;
 
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
     this.dataSource.paginator = this.paginator;
+  }
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+    this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (row, column) => {
+      console.log(
+        row.transactionDate,
+        unformatTransactionDate(row.transactionDate)
+      );
+      if (column === 'transactionDate') {
+        return unformatTransactionDate(row.transactionDate).getTime();
+      }
+      return row[column as keyof Transaction] as string;
+    };
   }
 
   dataSource: MatTableDataSource<Transaction, MatPaginator> =
@@ -48,7 +68,6 @@ export class TransactionHistoryComponent implements OnInit, OnDestroy {
     this.transactionsSub = this.transactionsService.transactions$.subscribe({
       next: (transactions) => {
         this.dataSource.data = transactions;
-        this.dataSource.paginator = this.paginator;
       },
     });
     this.getTransactions();
@@ -71,6 +90,15 @@ export class TransactionHistoryComponent implements OnInit, OnDestroy {
     'paidValue',
     'transactionDate',
   ];
+
+  announceSortChange(sortState: Sort) {
+    console.log(sortState);
+    if (sortState.direction) {
+      this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this.liveAnnouncer.announce('Sorting cleared');
+    }
+  }
 
   openDialog(id: number) {
     const dialogRef = this.dialog.open(TransactionDetailsComponent, {
